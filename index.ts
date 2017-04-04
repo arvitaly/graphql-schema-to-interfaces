@@ -9,7 +9,20 @@ export default (schema: g.GraphQLSchema) => {
             fields: config.fields,
         });
     });
+    mapper.setMapGraphQLInputObjectType((config) => {
+        generator.interfaces.push({
+            name: "I" + config.type.name,
+            fields: config.fields,
+        });
+    });
     mapper.setMapGraphQLObjectTypeFieldType((config) => {
+        return {
+            realType: config.realType,
+            isArray: config.isArray,
+            isNonNull: config.isNonNull,
+        };
+    });
+    mapper.setMapGraphQLInputObjectTypeFieldType((config) => {
         return {
             realType: config.realType,
             isArray: config.isArray,
@@ -22,10 +35,21 @@ export default (schema: g.GraphQLSchema) => {
             config.objectType.name,
             config.name,
             typeConfig.realType,
+            config.args.some((arg) => arg.isNonNull),
             config.args.length > 0,
             typeConfig.isNonNull,
             typeConfig.isArray);
-
+    });
+    mapper.setMapGraphQLInputObjectTypeField((config): IInterfaceField | undefined => {
+        const typeConfig: any = config.type;
+        return getInterfaceField(
+            config.objectType.name,
+            config.name,
+            typeConfig.realType,
+            false,
+            false,
+            typeConfig.isNonNull,
+            typeConfig.isArray);
     });
     mapper.setMapGraphQLObjectTypeFieldArgs((config) => {
         if (config.args.length > 0) {
@@ -36,6 +60,7 @@ export default (schema: g.GraphQLSchema) => {
                         config.objectType.name,
                         a.name,
                         a.realType,
+                        false,
                         false,
                         a.isNonNull,
                         a.isArray,
@@ -53,7 +78,9 @@ class Generator {
     public interfaces: IInterface[] = [];
 }
 export function getInterfaceField(
-    parentName: string, name: string, type: any, isHasArgs: boolean,
+    parentName: string, name: string, type: any,
+    isArgsRequired: boolean,
+    isHasArgs: boolean,
     isRequired: boolean, isArray: boolean) {
     let tpType = "any";
     let isFunction = false;
@@ -66,6 +93,8 @@ export function getInterfaceField(
         tpType = "I" + type.name;
     } else if (type instanceof g.GraphQLInterfaceType) {
         // TODO
+    } else if (type instanceof g.GraphQLInputObjectType) {
+        tpType = "I" + type.name;
     } else {
         throw new Error("Unknown field type: " + type);
     }
@@ -73,6 +102,7 @@ export function getInterfaceField(
         name,
         type: tpType,
         args: isHasArgs ? "I" + parentName + name + "Params" : "",
+        isArgsRequired,
         isFunction,
         isRequired,
         isArray,
@@ -100,9 +130,10 @@ export function printInterface(iface: IInterface): string {
             return "    " + field.name + (field.isFunction ?
                 "(" + (
                     field.args ?
-                        "params" + (field.isRequired ? "" : "?") + ": " + field.args
+                        "params" + (field.isArgsRequired ? "" : "?") + ": " + field.args
                         : "") +
                 ")" : "")
+                + (field.isRequired ? "" : "?")
                 + ": " + field.type + (field.isArray ? "[]" : "") + ";";
         }).join("\n") + "\n}";
 }
@@ -117,5 +148,6 @@ interface IInterfaceField {
     isFunction: boolean;
     args: string;
     isRequired: boolean;
+    isArgsRequired: boolean;
     isArray: boolean;
 }

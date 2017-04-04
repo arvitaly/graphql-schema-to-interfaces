@@ -5,6 +5,14 @@ const graphql_relay_1 = require("graphql-relay");
 const nodeInterface = graphql_relay_1.nodeDefinitions(() => { }, () => {
     return null;
 });
+const where = new g.GraphQLInputObjectType({
+    name: "Where",
+    fields: {
+        field1: {
+            type: new g.GraphQLNonNull(g.GraphQLString),
+        },
+    },
+});
 const schema = new g.GraphQLSchema({
     query: new g.GraphQLObjectType({
         name: "Query",
@@ -31,6 +39,7 @@ const schema = new g.GraphQLSchema({
                                                             id: { type: new g.GraphQLNonNull(g.GraphQLID) },
                                                             field1: { type: g.GraphQLString },
                                                             model2: {
+                                                                args: { where: { type: new g.GraphQLNonNull(where) } },
                                                                 type: new g.GraphQLObjectType({
                                                                     name: "Model2",
                                                                     fields: {
