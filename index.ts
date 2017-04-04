@@ -63,7 +63,6 @@ export function getInterfaceField(
     if (type instanceof g.GraphQLScalarType) {
         tpType = scalarToTS(type);
     } else if (type instanceof g.GraphQLObjectType) {
-        isFunction = true;
         tpType = "I" + type.name;
     } else if (type instanceof g.GraphQLInterfaceType) {
         // TODO

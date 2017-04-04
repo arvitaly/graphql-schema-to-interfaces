@@ -52,7 +52,6 @@ function getInterfaceField(parentName, name, type, isHasArgs, isRequired, isArra
         tpType = scalarToTS(type);
     }
     else if (type instanceof g.GraphQLObjectType) {
-        isFunction = true;
         tpType = "I" + type.name;
     }
     else if (type instanceof g.GraphQLInterfaceType) {

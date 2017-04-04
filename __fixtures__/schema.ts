@@ -1,5 +1,5 @@
 import * as g from "graphql";
-import { nodeDefinitions } from "graphql-relay";
+import { connectionArgs, nodeDefinitions } from "graphql-relay";
 const nodeInterface = nodeDefinitions(() => {/* */ }, () => {
     return null as any;
 });
@@ -14,6 +14,7 @@ const schema = new g.GraphQLSchema({
                     fields: {
                         id: { type: new g.GraphQLNonNull(g.GraphQLID) },
                         model1: {
+                            args: connectionArgs,
                             type: new g.GraphQLObjectType({
                                 name: "Model1Connection",
                                 fields: {

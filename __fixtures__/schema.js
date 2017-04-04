@@ -16,6 +16,7 @@ const schema = new g.GraphQLSchema({
                     fields: {
                         id: { type: new g.GraphQLNonNull(g.GraphQLID) },
                         model1: {
+                            args: graphql_relay_1.connectionArgs,
                             type: new g.GraphQLObjectType({
                                 name: "Model1Connection",
                                 fields: {
