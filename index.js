@@ -55,6 +55,9 @@ function getInterfaceField(parentName, name, type, isHasArgs, isRequired, isArra
         isFunction = true;
         tpType = "I" + type.name;
     }
+    else if (type instanceof g.GraphQLInterfaceType) {
+        // TODO
+    }
     else {
         throw new Error("Unknown field type: " + type);
     }

@@ -65,6 +65,8 @@ export function getInterfaceField(
     } else if (type instanceof g.GraphQLObjectType) {
         isFunction = true;
         tpType = "I" + type.name;
+    } else if (type instanceof g.GraphQLInterfaceType) {
+        // TODO
     } else {
         throw new Error("Unknown field type: " + type);
     }
