@@ -1,6 +1,6 @@
 {
   "name": "graphql-schema-to-interfaces",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Generate TypeScript-interfaces from graphql-schema",
   "main": "index.js",
   "scripts": {
@@ -31,6 +31,7 @@
     "@types/graphql-relay": "^0.4.1",
     "@types/node": "^7.0.12",
     "graphql": "^0.9.2",
-    "graphql-relay": "^0.5.1"
+    "graphql-relay": "^0.5.1",
+    "graphql-schema-map": "0.0.1"
   }
 }

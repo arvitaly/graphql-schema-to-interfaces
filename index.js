@@ -1,175 +1,99 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const g = require("graphql");
+const graphql_schema_map_1 = require("graphql-schema-map");
 exports.default = (schema) => {
-    const generator = new Generator(schema);
-    return generator.print();
+    const generator = new Generator();
+    const mapper = new graphql_schema_map_1.Mapper(schema, generator);
+    mapper.setMapGraphQLObjectType((config) => {
+        generator.interfaces.push({
+            name: "I" + config.type.name,
+            fields: config.fields,
+        });
+    });
+    mapper.setMapGraphQLObjectTypeFieldType((config) => {
+        return {
+            realType: config.realType,
+            isArray: config.isArray,
+            isNonNull: config.isNonNull,
+        };
+    });
+    mapper.setMapGraphQLObjectTypeField((config) => {
+        const typeConfig = config.type;
+        return getInterfaceField(config.objectType.name, config.name, typeConfig.realType, config.args.length > 0, typeConfig.isNonNull, typeConfig.isArray);
+    });
+    mapper.setMapGraphQLObjectTypeFieldArgs((config) => {
+        if (config.args.length > 0) {
+            // Add interface for params
+            generator.interfaces.push({
+                fields: config.args.map((a) => {
+                    return getInterfaceField(config.objectType.name, a.name, a.realType, false, a.isNonNull, a.isArray);
+                }),
+                name: "I" + config.objectType.name + config.fieldName + "Params",
+            });
+        }
+        return config.args;
+    });
+    mapper.map();
+    return generator.interfaces.reverse().map(printInterface).join("\n");
 };
 class Generator {
-    constructor(schema) {
-        this.schema = schema;
+    constructor() {
         this.interfaces = [];
-        this.types = [];
-        this.addGraphQLAllObjectType(this.schema.getQueryType());
-        this.interfaces.push({
-            name: "ISchema",
-            fields: [{
-                    args: "",
-                    isFunction: false,
-                    name: "query",
-                    type: "IQuery",
-                }, {
-                    args: "",
-                    isFunction: false,
-                    name: "mutation",
-                    type: "IMutation",
-                }]
-        });
-    }
-    print() {
-        return this.interfaces.reverse().map(printInterface).join("\n");
-    }
-    addGraphQLAllObjectType(type) {
-        if (this.types.some((t) => type === t)) {
-            return;
-        }
-        this.types.push(type);
-        let fields;
-        if (type instanceof g.GraphQLObjectType) {
-            fields = this.addFieldsForGraphQLObjectType(type.name, type.getFields());
-        }
-        else {
-            fields = this.addFieldsForGraphQLInputObjectType(type.name, type.getFields());
-        }
-        this.interfaces.push({
-            name: "I" + type.name,
-            fields,
-        });
-    }
-    addFieldsForGraphQLInputObjectType(parentName, fields) {
-        return Object.keys(fields).map((fieldName) => {
-            const field = fields[fieldName];
-            let tpType = "any";
-            const argName = "";
-            const isFunction = false;
-            if (field.type instanceof g.GraphQLInputObjectType) {
-                this.addGraphQLAllObjectType(field.type);
-                tpType = "I" + field.type.name;
-            }
-            if (field.type instanceof g.GraphQLScalarType) {
-                // TODO
-            }
-            return {
-                name: fieldName,
-                type: tpType,
-                args: argName,
-                isFunction,
-            };
-        });
-    }
-    addFieldsForGraphQLObjectType(parentName, fields) {
-        return Object.keys(fields).map((fieldName) => {
-            const field = fields[fieldName];
-            let tpType = "any";
-            let argName = "";
-            let isFunction = false;
-            argName = "I" + parentName + fieldName + "Params";
-            if (field.args.length > 0) {
-                isFunction = true;
-                this.addArgs(argName, field);
-            }
-            if (field.type instanceof g.GraphQLObjectType) {
-                this.addArgs(argName, field);
-                this.addGraphQLAllObjectType(field.type);
-                tpType = "I" + field.type.name;
-                isFunction = true;
-            }
-            return {
-                name: fieldName,
-                args: argName,
-                isFunction,
-                type: tpType,
-            };
-        });
-    }
-    addArgs(name, field) {
-        const fields = [];
-        field.args.map((arg) => {
-            switch (this.getType(arg.type)) {
-                case "list":
-                case "input":
-                    fields.push({
-                        name: arg.name,
-                        isFunction: false,
-                        type: "I" + arg.type.name,
-                        args: "",
-                    });
-                    break;
-                case "object":
-                    break;
-                case "string":
-                    fields.push({
-                        name: arg.name,
-                        type: "string",
-                        args: "",
-                        isFunction: false,
-                    });
-                    break;
-                case "float":
-                    fields.push({
-                        name: arg.name,
-                        type: "number",
-                        args: "",
-                        isFunction: false,
-                    });
-                    break;
-                case "int":
-                    fields.push({
-                        name: arg.name,
-                        type: "number",
-                        args: "",
-                        isFunction: false,
-                    });
-                    break;
-                default:
-                    throw new Error("Unknown type");
-            }
-        });
-        this.interfaces.push({
-            name,
-            fields,
-        });
-    }
-    getType(type) {
-        if (type instanceof g.GraphQLObjectType) {
-            return "object";
-        }
-        if (type instanceof g.GraphQLInputObjectType) {
-            return "input";
-        }
-        if (type instanceof g.GraphQLScalarType) {
-            switch (type) {
-                case g.GraphQLString:
-                    return "string";
-                case g.GraphQLFloat:
-                    return "float";
-                case g.GraphQLBoolean:
-                    return "boolean";
-                case g.GraphQLInt:
-                    return "int";
-                case g.GraphQLID:
-                    return "ID";
-                default:
-            }
-        }
-        throw new Error("Unknown GraphQLType: " + type.toString());
     }
 }
+function getInterfaceField(parentName, name, type, isHasArgs, isRequired, isArray) {
+    let tpType = "any";
+    let isFunction = false;
+    if (isHasArgs) {
+        isFunction = true;
+    }
+    if (type instanceof g.GraphQLScalarType) {
+        tpType = scalarToTS(type);
+    }
+    else if (type instanceof g.GraphQLObjectType) {
+        isFunction = true;
+        tpType = "I" + type.name;
+    }
+    else {
+        throw new Error("Unknown field type: " + type);
+    }
+    return {
+        name,
+        type: tpType,
+        args: isHasArgs ? "I" + parentName + name + "Params" : "",
+        isFunction,
+        isRequired,
+        isArray,
+    };
+}
+exports.getInterfaceField = getInterfaceField;
+function scalarToTS(t) {
+    switch (t) {
+        case g.GraphQLString:
+            return "string";
+        case g.GraphQLFloat:
+            return "number";
+        case g.GraphQLInt:
+            return "number";
+        case g.GraphQLBoolean:
+            return "boolean";
+        case g.GraphQLID:
+            return "string";
+        default:
+            throw new Error("Unknown scalar type " + t);
+    }
+}
+exports.scalarToTS = scalarToTS;
 function printInterface(iface) {
-    return "interface " + iface.name + " {\n" +
+    return "export interface " + iface.name + " {\n" +
         iface.fields.map((field) => {
-            return "    " + field.name + (field.isFunction ? "(params: " + field.args + ")" : "")
-                + ": " + field.type + ";";
+            return "    " + field.name + (field.isFunction ?
+                "(" + (field.args ?
+                    "params" + (field.isRequired ? "" : "?") + ": " + field.args
+                    : "") +
+                    ")" : "")
+                + ": " + field.type + (field.isArray ? "[]" : "") + ";";
         }).join("\n") + "\n}";
 }
 exports.printInterface = printInterface;
