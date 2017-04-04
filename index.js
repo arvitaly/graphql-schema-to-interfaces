@@ -97,5 +97,3 @@ function printInterface(iface) {
         }).join("\n") + "\n}";
 }
 exports.printInterface = printInterface;
-;
-;

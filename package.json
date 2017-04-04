@@ -32,6 +32,6 @@
     "@types/node": "^7.0.12",
     "graphql": "^0.9.2",
     "graphql-relay": "^0.5.1",
-    "graphql-schema-map": "0.0.1"
+    "graphql-schema-map": "0.0.3"
   }
 }

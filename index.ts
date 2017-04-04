@@ -17,7 +17,7 @@ export default (schema: g.GraphQLSchema) => {
         };
     });
     mapper.setMapGraphQLObjectTypeField((config): IInterfaceField | undefined => {
-        const typeConfig: IGraphQLObjectTypeFieldTypeConfig = config.type;
+        const typeConfig: any = config.type;
         return getInterfaceField(
             config.objectType.name,
             config.name,
@@ -109,7 +109,7 @@ export function printInterface(iface: IInterface): string {
 interface IInterface {
     name: string;
     fields: IInterfaceField[];
-};
+}
 interface IInterfaceField {
     name: string;
     type: string;
@@ -117,4 +117,4 @@ interface IInterfaceField {
     args: string;
     isRequired: boolean;
     isArray: boolean;
-};
+}
