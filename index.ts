@@ -41,7 +41,7 @@ export default (schema: g.GraphQLSchema, opts: IOpts = {}) => {
             typeConfig.realType,
             config.args.some((arg) => arg.isNonNull),
             config.args.length > 0,
-            opts.isOptionalFields || typeConfig.isNonNull,
+            !opts.isOptionalFields || typeConfig.isNonNull,
             typeConfig.isArray);
     });
     mapper.setMapGraphQLInputObjectTypeField((config): IInterfaceField | undefined => {
