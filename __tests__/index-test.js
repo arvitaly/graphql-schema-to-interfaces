@@ -5,5 +5,6 @@ const schema_1 = require("./../__fixtures__/schema");
 describe("Convert", () => {
     it("simple", () => {
         expect(__1.default(schema_1.default)).toMatchSnapshot();
+        expect(__1.default(schema_1.default, { isOptionalFields: true })).toMatchSnapshot();
     });
 });

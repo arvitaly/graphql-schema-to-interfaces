@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const g = require("graphql");
 const graphql_schema_map_1 = require("graphql-schema-map");
-exports.default = (schema) => {
+exports.default = (schema, opts = {}) => {
+    opts.isOptionalFields = typeof (opts.isOptionalFields) === "undefined" ? false : opts.isOptionalFields;
     const generator = new Generator();
     const mapper = new graphql_schema_map_1.Mapper(schema, generator);
     mapper.setMapGraphQLObjectType((config) => {
@@ -52,7 +53,7 @@ exports.default = (schema) => {
         return config.args;
     });
     mapper.map();
-    return generator.interfaces.reverse().map(printInterface).join("\n");
+    return generator.interfaces.reverse().map((i) => printInterface(i, opts.isOptionalFields)).join("\n");
 };
 class Generator {
     constructor() {
@@ -108,10 +109,10 @@ function scalarToTS(t) {
     }
 }
 exports.scalarToTS = scalarToTS;
-function printInterface(iface) {
+function printInterface(iface, isOptionalFields = false) {
     return "export interface " + iface.name + " {\n" +
         iface.fields.map((field) => {
-            return "    " + field.name + (field.isRequired ? "" : "?") + (field.isFunction ?
+            return "    " + field.name + (field.isRequired || !isOptionalFields ? "" : "?") + (field.isFunction ?
                 "(" + (field.args ?
                     "params" + (field.isArgsRequired ? "" : "?") + ": " + field.args
                     : "") +

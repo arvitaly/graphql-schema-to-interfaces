@@ -1,6 +1,10 @@
 import * as g from "graphql";
 import { IGraphQLObjectTypeFieldTypeConfig, Mapper } from "graphql-schema-map";
-export default (schema: g.GraphQLSchema) => {
+export interface IOpts {
+    isOptionalFields?: boolean;
+}
+export default (schema: g.GraphQLSchema, opts: IOpts = {}) => {
+    opts.isOptionalFields = typeof (opts.isOptionalFields) === "undefined" ? false : opts.isOptionalFields;
     const generator = new Generator();
     const mapper = new Mapper(schema, generator);
     mapper.setMapGraphQLObjectType((config) => {
@@ -72,7 +76,7 @@ export default (schema: g.GraphQLSchema) => {
         return config.args;
     });
     mapper.map();
-    return generator.interfaces.reverse().map(printInterface).join("\n");
+    return generator.interfaces.reverse().map((i) => printInterface(i, opts.isOptionalFields)).join("\n");
 };
 class Generator {
     public interfaces: IInterface[] = [];
@@ -124,10 +128,10 @@ export function scalarToTS(t: g.GraphQLScalarType): string {
             throw new Error("Unknown scalar type " + t);
     }
 }
-export function printInterface(iface: IInterface): string {
+export function printInterface(iface: IInterface, isOptionalFields = false): string {
     return "export interface " + iface.name + " {\n" +
         iface.fields.map((field) => {
-            return "    " + field.name + (field.isRequired ? "" : "?") + (field.isFunction ?
+            return "    " + field.name + (field.isRequired || !isOptionalFields ? "" : "?") + (field.isFunction ?
                 "(" + (
                     field.args ?
                         "params" + (field.isArgsRequired ? "" : "?") + ": " + field.args
