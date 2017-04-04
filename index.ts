@@ -127,13 +127,13 @@ export function scalarToTS(t: g.GraphQLScalarType): string {
 export function printInterface(iface: IInterface): string {
     return "export interface " + iface.name + " {\n" +
         iface.fields.map((field) => {
-            return "    " + field.name + (field.isFunction ?
+            return "    " + field.name + (field.isRequired ? "" : "?") + (field.isFunction ?
                 "(" + (
                     field.args ?
                         "params" + (field.isArgsRequired ? "" : "?") + ": " + field.args
                         : "") +
                 ")" : "")
-                + (field.isRequired ? "" : "?")
+
                 + ": " + field.type + (field.isArray ? "[]" : "") + ";";
         }).join("\n") + "\n}";
 }

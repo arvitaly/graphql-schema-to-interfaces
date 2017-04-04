@@ -2,12 +2,12 @@
 
 exports[`Convert simple 1`] = `
 "export interface IQuery {
-    node(params: IQuerynodeParams)?: any;
+    node?(params: IQuerynodeParams): any;
     viewer?: IViewer;
 }
 export interface IViewer {
     id: string;
-    model1(params?: IViewermodel1Params)?: IModel1Connection;
+    model1?(params?: IViewermodel1Params): IModel1Connection;
 }
 export interface IViewermodel1Params {
     after?: string;
@@ -28,7 +28,7 @@ export interface IModel1ConnectionEdge {
 export interface IModel1 {
     id: string;
     field1?: string;
-    model2(params: IModel1model2Params)?: IModel2;
+    model2?(params: IModel1model2Params): IModel2;
 }
 export interface IModel1model2Params {
     where: IWhere;
