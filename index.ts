@@ -41,7 +41,7 @@ export default (schema: g.GraphQLSchema, opts: IOpts = {}) => {
             typeConfig.realType,
             config.args.some((arg) => arg.isNonNull),
             config.args.length > 0,
-            typeConfig.isNonNull,
+            opts.isOptionalFields || typeConfig.isNonNull,
             typeConfig.isArray);
     });
     mapper.setMapGraphQLInputObjectTypeField((config): IInterfaceField | undefined => {
@@ -131,7 +131,7 @@ export function scalarToTS(t: g.GraphQLScalarType): string {
 export function printInterface(iface: IInterface, isOptionalFields = false): string {
     return "export interface " + iface.name + " {\n" +
         iface.fields.map((field) => {
-            return "    " + field.name + (field.isRequired || !isOptionalFields ? "" : "?") + (field.isFunction ?
+            return "    " + field.name + (field.isRequired ? "" : "?") + (field.isFunction ?
                 "(" + (
                     field.args ?
                         "params" + (field.isArgsRequired ? "" : "?") + ": " + field.args

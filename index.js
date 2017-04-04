@@ -34,7 +34,7 @@ exports.default = (schema, opts = {}) => {
     });
     mapper.setMapGraphQLObjectTypeField((config) => {
         const typeConfig = config.type;
-        return getInterfaceField(config.objectType.name, config.name, typeConfig.realType, config.args.some((arg) => arg.isNonNull), config.args.length > 0, typeConfig.isNonNull, typeConfig.isArray);
+        return getInterfaceField(config.objectType.name, config.name, typeConfig.realType, config.args.some((arg) => arg.isNonNull), config.args.length > 0, opts.isOptionalFields || typeConfig.isNonNull, typeConfig.isArray);
     });
     mapper.setMapGraphQLInputObjectTypeField((config) => {
         const typeConfig = config.type;
@@ -112,7 +112,7 @@ exports.scalarToTS = scalarToTS;
 function printInterface(iface, isOptionalFields = false) {
     return "export interface " + iface.name + " {\n" +
         iface.fields.map((field) => {
-            return "    " + field.name + (field.isRequired || !isOptionalFields ? "" : "?") + (field.isFunction ?
+            return "    " + field.name + (field.isRequired ? "" : "?") + (field.isFunction ?
                 "(" + (field.args ?
                     "params" + (field.isArgsRequired ? "" : "?") + ": " + field.args
                     : "") +

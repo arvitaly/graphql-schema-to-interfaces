@@ -11,6 +11,9 @@ const where = new g.GraphQLInputObjectType({
         field1: {
             type: new g.GraphQLNonNull(g.GraphQLString),
         },
+        fieldx: {
+            type: g.GraphQLFloat,
+        },
     },
 });
 const schema = new g.GraphQLSchema({
