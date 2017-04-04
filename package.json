@@ -1,6 +1,6 @@
 {
   "name": "graphql-schema-to-interfaces",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Generate TypeScript-interfaces from graphql-schema",
   "main": "index.js",
   "scripts": {
