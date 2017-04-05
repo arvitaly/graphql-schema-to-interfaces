@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import commander = require("commander");
 import Main from "./main";
 commander
