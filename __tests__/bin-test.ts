@@ -18,7 +18,7 @@ describe("bin", () => {
         api = await createAPI();
     });
     afterAll(() => {
-        // api.server.close();
+        api.server.close();
     });
     it("schema from server", async () => {
         const outPath = join(__dirname, "./../__fixtures__", "interfaces2.ts");

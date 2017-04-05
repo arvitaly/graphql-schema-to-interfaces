@@ -27,7 +27,7 @@ describe("bin", () => {
         api = yield api_1.default();
     }));
     afterAll(() => {
-        // api.server.close();
+        api.server.close();
     });
     it("schema from server", () => __awaiter(this, void 0, void 0, function* () {
         const outPath = path_1.join(__dirname, "./../__fixtures__", "interfaces2.ts");
