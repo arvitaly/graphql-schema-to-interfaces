@@ -75,6 +75,12 @@ function getInterfaceField(parentName, name, type, isArgsRequired, isHasArgs, is
     else if (type instanceof g.GraphQLInterfaceType) {
         // TODO
     }
+    else if (type instanceof g.GraphQLEnumType) {
+        // TODO
+    }
+    else if (type instanceof g.GraphQLUnionType) {
+        // TODO
+    }
     else if (type instanceof g.GraphQLInputObjectType) {
         tpType = "I" + type.name;
     }
@@ -105,7 +111,7 @@ function scalarToTS(t) {
         case g.GraphQLID:
             return "string";
         default:
-            throw new Error("Unknown scalar type " + t);
+            return "any";
     }
 }
 exports.scalarToTS = scalarToTS;
