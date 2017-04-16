@@ -7,6 +7,7 @@ commander
     .usage("[options] [file ...]")
     .option("-s, --schema <type>", "JSON GraphQL-schema")
     .option("-a, --api <type>", "GraphQL-server address")
+    .option("-g, --graphqlSchema <type>", "GraphQL instance of schema")
     .option("-o, --optional-fields", "IsOptionalFields - to make all output fields required or as is")
     .parse(process.argv);
 if (!commander.args[0]) {

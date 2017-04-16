@@ -13,6 +13,15 @@ describe("bin", () => {
         await main.run();
         expect("" + readFileSync(outPath)).toMatchSnapshot();
     });
+    it("schema from require", async () => {
+        const outPath = join(__dirname, "./../__fixtures__", "interfaces_instance.ts");
+        const schemaPath = join(__dirname, "./../__fixtures__", "schema.js");
+        const main = new Main(outPath, {
+            graphqlSchema: schemaPath,
+        });
+        await main.run();
+        expect("" + readFileSync(outPath)).toMatchSnapshot();
+    });
     let api: IAPI;
     beforeAll(async () => {
         api = await createAPI();

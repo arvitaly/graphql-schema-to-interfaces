@@ -1,9 +1,10 @@
 import { writeFileSync } from "fs";
-import { buildClientSchema, introspectionQuery } from "graphql";
+import { buildClientSchema, GraphQLSchema, introspectionQuery } from "graphql";
 import fetch from "node-fetch";
 import generate from ".";
 export interface IOpts {
     schema?: string;
+    graphqlSchema?: string;
     api?: string;
     optionalFields?: boolean;
 }
@@ -14,20 +15,25 @@ class Main {
     public async run() {
         // Read JSON-schema
         let schemaJSON: any;
-        if (this.opts.schema) {
-            // tslint:disable-next-line:no-var-requires
-            this.log("Require schema from " + this.opts.schema);
-            schemaJSON = require(this.opts.schema).data;
+        let schema: GraphQLSchema;
+        if (this.opts.graphqlSchema) {
+            schema = require(this.opts.graphqlSchema).default;
         } else {
-            if (this.opts.api) {
-                this.log("Require schema from  server " + this.opts.api);
-                schemaJSON = (await this.getSchemaFromServer(this.opts.api)).data;
-                this.log("Fetched schema from server successfully");
+            if (this.opts.schema) {
+                // tslint:disable-next-line:no-var-requires
+                this.log("Require schema from " + this.opts.schema);
+                schemaJSON = require(this.opts.schema).data;
             } else {
-                throw new Error("Should be setted api-server or schema-file");
+                if (this.opts.api) {
+                    this.log("Require schema from  server " + this.opts.api);
+                    schemaJSON = (await this.getSchemaFromServer(this.opts.api)).data;
+                    this.log("Fetched schema from server successfully");
+                } else {
+                    throw new Error("Should be setted api-server or schema-file");
+                }
             }
+            schema = buildClientSchema(schemaJSON);
         }
-        const schema = buildClientSchema(schemaJSON);
         const isOptionalFields = this.opts.optionalFields ? true : undefined;
         const interfacesString = generate(schema, { isOptionalFields });
         // Writing...

@@ -21,22 +21,28 @@ class Main {
         return __awaiter(this, void 0, void 0, function* () {
             // Read JSON-schema
             let schemaJSON;
-            if (this.opts.schema) {
-                // tslint:disable-next-line:no-var-requires
-                this.log("Require schema from " + this.opts.schema);
-                schemaJSON = require(this.opts.schema).data;
+            let schema;
+            if (this.opts.graphqlSchema) {
+                schema = require(this.opts.graphqlSchema).default;
             }
             else {
-                if (this.opts.api) {
-                    this.log("Require schema from  server " + this.opts.api);
-                    schemaJSON = (yield this.getSchemaFromServer(this.opts.api)).data;
-                    this.log("Fetched schema from server successfully");
+                if (this.opts.schema) {
+                    // tslint:disable-next-line:no-var-requires
+                    this.log("Require schema from " + this.opts.schema);
+                    schemaJSON = require(this.opts.schema).data;
                 }
                 else {
-                    throw new Error("Should be setted api-server or schema-file");
+                    if (this.opts.api) {
+                        this.log("Require schema from  server " + this.opts.api);
+                        schemaJSON = (yield this.getSchemaFromServer(this.opts.api)).data;
+                        this.log("Fetched schema from server successfully");
+                    }
+                    else {
+                        throw new Error("Should be setted api-server or schema-file");
+                    }
                 }
+                schema = graphql_1.buildClientSchema(schemaJSON);
             }
-            const schema = graphql_1.buildClientSchema(schemaJSON);
             const isOptionalFields = this.opts.optionalFields ? true : undefined;
             const interfacesString = _1.default(schema, { isOptionalFields });
             // Writing...

@@ -22,6 +22,15 @@ describe("bin", () => {
         yield main.run();
         expect("" + fs_1.readFileSync(outPath)).toMatchSnapshot();
     }));
+    it("schema from require", () => __awaiter(this, void 0, void 0, function* () {
+        const outPath = path_1.join(__dirname, "./../__fixtures__", "interfaces_instance.ts");
+        const schemaPath = path_1.join(__dirname, "./../__fixtures__", "schema.js");
+        const main = new main_1.default(outPath, {
+            graphqlSchema: schemaPath,
+        });
+        yield main.run();
+        expect("" + fs_1.readFileSync(outPath)).toMatchSnapshot();
+    }));
     let api;
     beforeAll(() => __awaiter(this, void 0, void 0, function* () {
         api = yield api_1.default();
