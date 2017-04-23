@@ -1,5 +1,5 @@
 import * as g from "graphql";
-import { IGraphQLObjectTypeFieldTypeConfig, Mapper } from "graphql-schema-map";
+import { Mapper } from "graphql-schema-map";
 export interface IOpts {
     isOptionalFields?: boolean;
 }
@@ -76,7 +76,7 @@ export default (schema: g.GraphQLSchema, opts: IOpts = {}) => {
         return config.args;
     });
     mapper.map();
-    return generator.interfaces.reverse().map((i) => printInterface(i, opts.isOptionalFields)).join("\n");
+    return generator.interfaces.reverse().map((i) => printInterface(i)).join("\n");
 };
 class Generator {
     public interfaces: IInterface[] = [];
@@ -133,7 +133,7 @@ export function scalarToTS(t: g.GraphQLScalarType): string {
         // throw new Error("Unknown scalar type " + t);
     }
 }
-export function printInterface(iface: IInterface, isOptionalFields = false): string {
+export function printInterface(iface: IInterface): string {
     return "export interface " + iface.name + " {\n" +
         iface.fields.map((field) => {
             return "    " + field.name + (field.isRequired ? "" : "?") + (field.isFunction ?

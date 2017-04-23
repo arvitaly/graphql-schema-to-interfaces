@@ -1,4 +1,3 @@
-import { spawnSync } from "child_process";
 import { readFileSync } from "fs";
 import { join } from "path";
 import createAPI, { IAPI } from "./../__fixtures__/api";

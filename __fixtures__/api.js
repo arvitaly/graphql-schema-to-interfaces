@@ -18,11 +18,11 @@ exports.default = () => __awaiter(this, void 0, void 0, function* () {
     const app = express();
     graphql_tools_1.addMockFunctionsToSchema({ schema: schema_1.default });
     // tslint:disable-next-line:space-before-function-paren
-    app.use("/graphql", function (req, res) {
+    app.use("/graphql", (...args) => {
         return graphqlHTTP({
             graphiql: true,
             schema: schema_1.default,
-        }).apply(this, arguments);
+        }).apply(null, args);
     });
     const server = yield new Promise((resolve, reject) => {
         const serverL = app.listen(port, (err) => {

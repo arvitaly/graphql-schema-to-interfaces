@@ -53,7 +53,7 @@ exports.default = (schema, opts = {}) => {
         return config.args;
     });
     mapper.map();
-    return generator.interfaces.reverse().map((i) => printInterface(i, opts.isOptionalFields)).join("\n");
+    return generator.interfaces.reverse().map((i) => printInterface(i)).join("\n");
 };
 class Generator {
     constructor() {
@@ -115,7 +115,7 @@ function scalarToTS(t) {
     }
 }
 exports.scalarToTS = scalarToTS;
-function printInterface(iface, isOptionalFields = false) {
+function printInterface(iface) {
     return "export interface " + iface.name + " {\n" +
         iface.fields.map((field) => {
             return "    " + field.name + (field.isRequired ? "" : "?") + (field.isFunction ?
