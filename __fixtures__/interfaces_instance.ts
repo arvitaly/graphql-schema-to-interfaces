@@ -32,7 +32,7 @@ export interface IMutationupdateTopicsParams {
     input: IUpdateTopicsInput;
 }
 export interface IUpdateTopicsInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     repositoryId: string;
     topicNames: string[];
 }
@@ -45,7 +45,7 @@ export interface IMutationupdateSubscriptionParams {
     input: IUpdateSubscriptionInput;
 }
 export interface IUpdateSubscriptionInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     subscribableId: string;
     state: any;
 }
@@ -57,7 +57,7 @@ export interface IMutationupdatePullRequestReviewCommentParams {
     input: IUpdatePullRequestReviewCommentInput;
 }
 export interface IUpdatePullRequestReviewCommentInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     pullRequestReviewCommentId: string;
     body: string;
 }
@@ -69,7 +69,7 @@ export interface IMutationupdatePullRequestReviewParams {
     input: IUpdatePullRequestReviewInput;
 }
 export interface IUpdatePullRequestReviewInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     pullRequestReviewId: string;
     body: string;
 }
@@ -81,7 +81,7 @@ export interface IMutationupdateProjectColumnParams {
     input: IUpdateProjectColumnInput;
 }
 export interface IUpdateProjectColumnInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     projectColumnId: string;
     name: string;
 }
@@ -93,7 +93,7 @@ export interface IMutationupdateProjectCardParams {
     input: IUpdateProjectCardInput;
 }
 export interface IUpdateProjectCardInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     projectCardId: string;
     note: string;
 }
@@ -105,11 +105,11 @@ export interface IMutationupdateProjectParams {
     input: IUpdateProjectInput;
 }
 export interface IUpdateProjectInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     projectId: string;
     name: string;
-    body?: string;
-    state?: any;
+    body?: string | null;
+    state?: any | null;
 }
 export interface IUpdateProjectPayload {
     clientMutationId: string;
@@ -119,10 +119,10 @@ export interface IMutationsubmitPullRequestReviewParams {
     input: ISubmitPullRequestReviewInput;
 }
 export interface ISubmitPullRequestReviewInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     pullRequestReviewId: string;
     event: any;
-    body?: string;
+    body?: string | null;
 }
 export interface ISubmitPullRequestReviewPayload {
     clientMutationId: string;
@@ -132,10 +132,10 @@ export interface IMutationrequestReviewsParams {
     input: IRequestReviewsInput;
 }
 export interface IRequestReviewsInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     pullRequestId: string;
     userIds: string[];
-    union?: boolean;
+    union?: boolean | null;
 }
 export interface IRequestReviewsPayload {
     clientMutationId: string;
@@ -146,7 +146,7 @@ export interface IMutationremoveReactionParams {
     input: IRemoveReactionInput;
 }
 export interface IRemoveReactionInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     subjectId: string;
     content: any;
 }
@@ -159,7 +159,7 @@ export interface IMutationremoveOutsideCollaboratorParams {
     input: IRemoveOutsideCollaboratorInput;
 }
 export interface IRemoveOutsideCollaboratorInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     userId: string;
     organizationId: string;
 }
@@ -171,9 +171,9 @@ export interface IMutationmoveProjectColumnParams {
     input: IMoveProjectColumnInput;
 }
 export interface IMoveProjectColumnInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     columnId: string;
-    afterColumnId?: string;
+    afterColumnId?: string | null;
 }
 export interface IMoveProjectColumnPayload {
     clientMutationId: string;
@@ -183,10 +183,10 @@ export interface IMutationmoveProjectCardParams {
     input: IMoveProjectCardInput;
 }
 export interface IMoveProjectCardInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     cardId: string;
     columnId: string;
-    afterCardId?: string;
+    afterCardId?: string | null;
 }
 export interface IMoveProjectCardPayload {
     cardEdge: IProjectCardEdge;
@@ -196,7 +196,7 @@ export interface IMutationdismissPullRequestReviewParams {
     input: IDismissPullRequestReviewInput;
 }
 export interface IDismissPullRequestReviewInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     pullRequestReviewId: string;
     message: string;
 }
@@ -208,7 +208,7 @@ export interface IMutationdeletePullRequestReviewParams {
     input: IDeletePullRequestReviewInput;
 }
 export interface IDeletePullRequestReviewInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     pullRequestReviewId: string;
 }
 export interface IDeletePullRequestReviewPayload {
@@ -219,7 +219,7 @@ export interface IMutationdeleteProjectColumnParams {
     input: IDeleteProjectColumnInput;
 }
 export interface IDeleteProjectColumnInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     columnId: string;
 }
 export interface IDeleteProjectColumnPayload {
@@ -231,7 +231,7 @@ export interface IMutationdeleteProjectCardParams {
     input: IDeleteProjectCardInput;
 }
 export interface IDeleteProjectCardInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     cardId: string;
 }
 export interface IDeleteProjectCardPayload {
@@ -243,7 +243,7 @@ export interface IMutationdeleteProjectParams {
     input: IDeleteProjectInput;
 }
 export interface IDeleteProjectInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     projectId: string;
 }
 export interface IDeleteProjectPayload {
@@ -254,7 +254,7 @@ export interface IMutationdeclineTopicSuggestionParams {
     input: IDeclineTopicSuggestionInput;
 }
 export interface IDeclineTopicSuggestionInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     repositoryId: string;
     name: string;
     reason: any;
@@ -267,10 +267,10 @@ export interface IMutationcreateProjectParams {
     input: ICreateProjectInput;
 }
 export interface ICreateProjectInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     ownerId: string;
     name: string;
-    body?: string;
+    body?: string | null;
 }
 export interface ICreateProjectPayload {
     clientMutationId: string;
@@ -280,7 +280,7 @@ export interface IMutationaddReactionParams {
     input: IAddReactionInput;
 }
 export interface IAddReactionInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     subjectId: string;
     content: any;
 }
@@ -293,13 +293,13 @@ export interface IMutationaddPullRequestReviewCommentParams {
     input: IAddPullRequestReviewCommentInput;
 }
 export interface IAddPullRequestReviewCommentInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     pullRequestReviewId: string;
-    commitOID?: any;
+    commitOID?: any | null;
     body: string;
-    path?: string;
-    position?: number;
-    inReplyTo?: string;
+    path?: string | null;
+    position?: number | null;
+    inReplyTo?: string | null;
 }
 export interface IAddPullRequestReviewCommentPayload {
     clientMutationId: string;
@@ -310,11 +310,11 @@ export interface IMutationaddPullRequestReviewParams {
     input: IAddPullRequestReviewInput;
 }
 export interface IAddPullRequestReviewInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     pullRequestId: string;
-    body?: string;
-    event?: any;
-    comments?: IDraftPullRequestReviewComment[];
+    body?: string | null;
+    event?: any | null;
+    comments?: IDraftPullRequestReviewComment[] | null;
 }
 export interface IDraftPullRequestReviewComment {
     path: string;
@@ -330,7 +330,7 @@ export interface IMutationaddProjectColumnParams {
     input: IAddProjectColumnInput;
 }
 export interface IAddProjectColumnInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     projectId: string;
     name: string;
 }
@@ -343,10 +343,10 @@ export interface IMutationaddProjectCardParams {
     input: IAddProjectCardInput;
 }
 export interface IAddProjectCardInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     projectColumnId: string;
-    contentId?: string;
-    note?: string;
+    contentId?: string | null;
+    note?: string | null;
 }
 export interface IAddProjectCardPayload {
     cardEdge: IProjectCardEdge;
@@ -357,7 +357,7 @@ export interface IMutationaddCommentParams {
     input: IAddCommentInput;
 }
 export interface IAddCommentInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     subjectId: string;
     body: string;
 }
@@ -371,7 +371,7 @@ export interface IMutationacceptTopicSuggestionParams {
     input: IAcceptTopicSuggestionInput;
 }
 export interface IAcceptTopicSuggestionInput {
-    clientMutationId?: string;
+    clientMutationId?: string | null;
     repositoryId: string;
     name: string;
 }
@@ -399,10 +399,10 @@ export interface IQuerytopicParams {
     name: string;
 }
 export interface IQuerysearchParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
     query: string;
     type: any;
 }
@@ -421,7 +421,7 @@ export interface ISearchResultItemEdge {
     node: any;
 }
 export interface IQueryresourceParams {
-    url?: any;
+    url?: any | null;
 }
 export interface IQueryrepositoryOwnerParams {
     login: string;
@@ -458,14 +458,14 @@ export interface IOrganization {
     viewerCanCreateRepositories: boolean;
 }
 export interface IOrganizationteamsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    privacy?: any;
-    role?: any;
-    query?: string;
-    orderBy?: ITeamOrder;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    privacy?: any | null;
+    role?: any | null;
+    query?: string | null;
+    orderBy?: ITeamOrder | null;
 }
 export interface ITeamOrder {
     field: any;
@@ -482,7 +482,7 @@ export interface ITeamEdge {
     node: ITeam;
 }
 export interface IOrganizationteamParams {
-    slug?: string;
+    slug?: string | null;
 }
 export interface ITeam {
     description: string;
@@ -501,10 +501,10 @@ export interface ITeam {
     url: any;
 }
 export interface ITeaminvitationsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IOrganizationInvitationConnection {
     edges: IOrganizationInvitationEdge[];
@@ -527,33 +527,33 @@ export interface IOrganizationrepositoryParams {
     name: string;
 }
 export interface IOrganizationrepositoriesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    privacy?: any;
-    orderBy?: IRepositoryOrder;
-    affiliation?: any[];
-    isLocked?: boolean;
-    isFork?: boolean;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    privacy?: any | null;
+    orderBy?: IRepositoryOrder | null;
+    affiliation?: any[] | null;
+    isLocked?: boolean | null;
+    isFork?: boolean | null;
 }
 export interface IOrganizationprojectsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    orderBy?: IProjectOrder;
-    search?: string;
-    states?: any[];
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    orderBy?: IProjectOrder | null;
+    search?: string | null;
+    states?: any[] | null;
 }
 export interface IOrganizationprojectParams {
     number: number;
 }
 export interface IOrganizationmembersParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IUserConnection {
     edges: IUserEdge[];
@@ -606,22 +606,22 @@ export interface IUser {
     websiteURL: string;
 }
 export interface IUserwatchingParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    privacy?: any;
-    orderBy?: IRepositoryOrder;
-    affiliation?: any[];
-    isLocked?: boolean;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    privacy?: any | null;
+    orderBy?: IRepositoryOrder | null;
+    affiliation?: any[] | null;
+    isLocked?: boolean | null;
 }
 export interface IUserstarredRepositoriesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    ownedByViewer?: boolean;
-    orderBy?: IStarOrder;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    ownedByViewer?: boolean | null;
+    orderBy?: IStarOrder | null;
 }
 export interface IStarredRepositoryConnection {
     edges: IStarredRepositoryEdge[];
@@ -638,41 +638,41 @@ export interface IUserrepositoryParams {
     name: string;
 }
 export interface IUserrepositoriesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    privacy?: any;
-    orderBy?: IRepositoryOrder;
-    affiliation?: any[];
-    isLocked?: boolean;
-    isFork?: boolean;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    privacy?: any | null;
+    orderBy?: IRepositoryOrder | null;
+    affiliation?: any[] | null;
+    isLocked?: boolean | null;
+    isFork?: boolean | null;
 }
 export interface IUserpullRequestsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    states?: any[];
-    labels?: string[];
-    headRefName?: string;
-    baseRefName?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    states?: any[] | null;
+    labels?: string[] | null;
+    headRefName?: string | null;
+    baseRefName?: string | null;
 }
 export interface IUserpinnedRepositoriesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    privacy?: any;
-    orderBy?: IRepositoryOrder;
-    affiliation?: any[];
-    isLocked?: boolean;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    privacy?: any | null;
+    orderBy?: IRepositoryOrder | null;
+    affiliation?: any[] | null;
+    isLocked?: boolean | null;
 }
 export interface IUserorganizationsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IOrganizationConnection {
     edges: IOrganizationEdge[];
@@ -688,20 +688,20 @@ export interface IUserorganizationParams {
     login: string;
 }
 export interface IUsergistsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    visibility?: any;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    visibility?: any | null;
 }
 export interface IUsergistParams {
     name: string;
 }
 export interface IUserfollowingParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IFollowingConnection {
     edges: IUserEdge[];
@@ -710,10 +710,10 @@ export interface IFollowingConnection {
     totalCount: number;
 }
 export interface IUserfollowersParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IFollowerConnection {
     edges: IUserEdge[];
@@ -722,14 +722,14 @@ export interface IFollowerConnection {
     totalCount: number;
 }
 export interface IUsercontributedRepositoriesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    privacy?: any;
-    orderBy?: IRepositoryOrder;
-    affiliation?: any[];
-    isLocked?: boolean;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    privacy?: any | null;
+    orderBy?: IRepositoryOrder | null;
+    affiliation?: any[] | null;
+    isLocked?: boolean | null;
 }
 export interface IRepositoryConnection {
     edges: IRepositoryEdge[];
@@ -800,17 +800,17 @@ export interface IRepository {
     watchers(params?: IRepositorywatchersParams): IUserConnection;
 }
 export interface IRepositorywatchersParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IRepositorystargazersParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    orderBy?: IStarOrder;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    orderBy?: IStarOrder | null;
 }
 export interface IStarOrder {
     field: any;
@@ -828,10 +828,10 @@ export interface IStargazerEdge {
     starredAt: any;
 }
 export interface IRepositoryrepositoryTopicsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IRepositoryTopicConnection {
     edges: IRepositoryTopicEdge[];
@@ -855,10 +855,10 @@ export interface ITopic {
     relatedTopics: ITopic[];
 }
 export interface IRepositoryreleasesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IReleaseConnection {
     edges: IReleaseEdge[];
@@ -882,17 +882,17 @@ export interface IRelease {
     url: any;
 }
 export interface IReleasereleaseAssetsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IReleasereleaseAssetParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    name?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    name?: string | null;
 }
 export interface IReleaseAssetConnection {
     edges: IReleaseAssetEdge[];
@@ -911,12 +911,12 @@ export interface IReleaseAsset {
     url: any;
 }
 export interface IRepositoryrefsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
     refPrefix: string;
-    direction?: any;
+    direction?: any | null;
 }
 export interface IRefConnection {
     edges: IRefEdge[];
@@ -932,23 +932,23 @@ export interface IRepositoryrefParams {
     qualifiedName: string;
 }
 export interface IRepositorypullRequestsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    states?: any[];
-    labels?: string[];
-    headRefName?: string;
-    baseRefName?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    states?: any[] | null;
+    labels?: string[] | null;
+    headRefName?: string | null;
+    baseRefName?: string | null;
 }
 export interface IRepositorypullRequestParams {
     number: number;
 }
 export interface IRepositoryprotectedBranchesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IProtectedBranchConnection {
     edges: IProtectedBranchEdge[];
@@ -975,10 +975,10 @@ export interface IProtectedBranch {
     strictRequiredStatusChecksPolicy: boolean;
 }
 export interface IProtectedBranchreviewDismissalAllowancesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IReviewDismissalAllowanceConnection {
     edges: IReviewDismissalAllowanceEdge[];
@@ -996,13 +996,13 @@ export interface IReviewDismissalAllowance {
     protectedBranch: IProtectedBranch;
 }
 export interface IRepositoryprojectsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    orderBy?: IProjectOrder;
-    search?: string;
-    states?: any[];
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    orderBy?: IProjectOrder | null;
+    search?: string | null;
+    states?: any[] | null;
 }
 export interface IProjectOrder {
     field: any;
@@ -1041,10 +1041,10 @@ export interface IProject {
     viewerCanUpdate: boolean;
 }
 export interface IProjectcolumnsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IProjectColumnConnection {
     edges: IProjectColumnEdge[];
@@ -1066,10 +1066,10 @@ export interface IProjectColumn {
     updatedAt: any;
 }
 export interface IProjectColumncardsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IProjectCardConnection {
     edges: IProjectCardEdge[];
@@ -1093,14 +1093,14 @@ export interface IProjectCard {
     updatedAt: any;
 }
 export interface IRepositoryobjectParams {
-    oid?: any;
-    expression?: string;
+    oid?: any | null;
+    expression?: string | null;
 }
 export interface IRepositorymilestonesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IMilestoneConnection {
     edges: IMilestoneEdge[];
@@ -1116,17 +1116,17 @@ export interface IRepositorymilestoneParams {
     number: number;
 }
 export interface IRepositorymentionableUsersParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IRepositorylanguagesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    orderBy?: ILanguageOrder;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    orderBy?: ILanguageOrder | null;
 }
 export interface ILanguageOrder {
     field: any;
@@ -1150,21 +1150,21 @@ export interface ILanguage {
     name: string;
 }
 export interface IRepositorylabelsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IRepositorylabelParams {
     name: string;
 }
 export interface IRepositoryissuesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    states?: any[];
-    labels?: string[];
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    states?: any[] | null;
+    labels?: string[] | null;
 }
 export interface IRepositoryissueishParams {
     number: number;
@@ -1173,14 +1173,14 @@ export interface IRepositoryissueParams {
     number: number;
 }
 export interface IRepositoryforksParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    privacy?: any;
-    orderBy?: IRepositoryOrder;
-    affiliation?: any[];
-    isLocked?: boolean;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    privacy?: any | null;
+    orderBy?: IRepositoryOrder | null;
+    affiliation?: any[] | null;
+    isLocked?: boolean | null;
 }
 export interface IRepositoryOrder {
     field: any;
@@ -1195,11 +1195,11 @@ export interface IRef {
     target: any;
 }
 export interface IRefassociatedPullRequestsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    states?: any[];
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    states?: any[] | null;
 }
 export interface IPullRequestConnection {
     edges: IPullRequestEdge[];
@@ -1265,18 +1265,18 @@ export interface IPullRequestwebsocketParams {
     channel: any;
 }
 export interface IPullRequesttimelineParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    since?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    since?: string | null;
 }
 export interface IPullRequestreviewsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    states?: any[];
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    states?: any[] | null;
 }
 export interface IPullRequestReviewConnection {
     edges: IPullRequestReviewEdge[];
@@ -1317,10 +1317,10 @@ export interface IPullRequestReview {
     viewerDidAuthor: boolean;
 }
 export interface IPullRequestReviewcommentsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IPullRequestReviewCommentConnection {
     edges: IPullRequestReviewCommentEdge[];
@@ -1373,18 +1373,18 @@ export interface IPullRequestReviewCommentwebsocketParams {
     channel: any;
 }
 export interface IPullRequestReviewCommentreactionsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    content?: any;
-    orderBy?: IReactionOrder;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    content?: any | null;
+    orderBy?: IReactionOrder | null;
 }
 export interface IPullRequestreviewRequestsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IReviewRequestConnection {
     edges: IReviewRequestEdge[];
@@ -1403,24 +1403,24 @@ export interface IReviewRequest {
     reviewer: IUser;
 }
 export interface IPullRequestreactionsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    content?: any;
-    orderBy?: IReactionOrder;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    content?: any | null;
+    orderBy?: IReactionOrder | null;
 }
 export interface IPullRequestlabelsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IPullRequestcommitsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface ICommitConnection {
     edges: ICommitEdge[];
@@ -1429,10 +1429,10 @@ export interface ICommitConnection {
     totalCount: number;
 }
 export interface IPullRequestcommentsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IIssueCommentConnection {
     edges: IIssueCommentEdge[];
@@ -1475,12 +1475,12 @@ export interface IIssueCommentwebsocketParams {
     channel: any;
 }
 export interface IIssueCommentreactionsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    content?: any;
-    orderBy?: IReactionOrder;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    content?: any | null;
+    orderBy?: IReactionOrder | null;
 }
 export interface IIssue {
     assignees(params?: IIssueassigneesParams): IUserConnection;
@@ -1524,11 +1524,11 @@ export interface IIssuewebsocketParams {
     channel: any;
 }
 export interface IIssuetimelineParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    since?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    since?: string | null;
 }
 export interface IIssueTimelineConnection {
     edges: IIssueTimelineItemEdge[];
@@ -1541,18 +1541,18 @@ export interface IIssueTimelineItemEdge {
     node: any;
 }
 export interface IIssuereactionsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    content?: any;
-    orderBy?: IReactionOrder;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    content?: any | null;
+    orderBy?: IReactionOrder | null;
 }
 export interface IIssueparticipantsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IMilestone {
     closedIssueCount: number;
@@ -1569,10 +1569,10 @@ export interface IMilestone {
     url: any;
 }
 export interface IIssuelabelsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface ILabelConnection {
     edges: ILabelEdge[];
@@ -1593,16 +1593,16 @@ export interface ILabel {
     repository: IRepository;
 }
 export interface ILabelpullRequestsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface ILabelissuesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IIssueConnection {
     edges: IIssueEdge[];
@@ -1615,28 +1615,28 @@ export interface IIssueEdge {
     node: IIssue;
 }
 export interface IIssuecommentsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IIssueassigneesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IPullRequestassigneesParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IRepositorycommitCommentsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface ICommitCommentConnection {
     edges: ICommitCommentEdge[];
@@ -1678,12 +1678,12 @@ export interface ICommitComment {
     viewerDidAuthor: boolean;
 }
 export interface ICommitCommentreactionsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    content?: any;
-    orderBy?: IReactionOrder;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    content?: any | null;
+    orderBy?: IReactionOrder | null;
 }
 export interface IReactionOrder {
     field: any;
@@ -1715,10 +1715,10 @@ export interface IReactionGroup {
     viewerHasReacted: boolean;
 }
 export interface IReactionGroupusersParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface IReactingUserConnection {
     edges: IReactingUserEdge[];
@@ -1788,18 +1788,18 @@ export interface IStatusContext {
     targetURL: string;
 }
 export interface ICommithistoryParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    path?: string;
-    author?: ICommitAuthor;
-    since?: any;
-    until?: any;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    path?: string | null;
+    author?: ICommitAuthor | null;
+    since?: any | null;
+    until?: any | null;
 }
 export interface ICommitAuthor {
-    id?: string;
-    emails?: string[];
+    id?: string | null;
+    emails?: string[] | null;
 }
 export interface ICommitHistoryConnection {
     edges: ICommitEdge[];
@@ -1811,10 +1811,10 @@ export interface ICommitEdge {
     node: ICommit;
 }
 export interface ICommitcommentsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
 }
 export interface ICommitblameParams {
     path: string;
@@ -1836,17 +1836,17 @@ export interface IGitActor {
     user: IUser;
 }
 export interface IGitActoravatarURLParams {
-    size?: number;
+    size?: number | null;
 }
 export interface IUseravatarURLParams {
-    size?: number;
+    size?: number | null;
 }
 export interface IOrganizationgistsParams {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-    visibility?: any;
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+    visibility?: any | null;
 }
 export interface IGistConnection {
     edges: IGistEdge[];
@@ -1877,7 +1877,7 @@ export interface IGist {
     updatedAt: any;
 }
 export interface IOrganizationavatarURLParams {
-    size?: number;
+    size?: number | null;
 }
 export interface IQuerynodesParams {
     ids: string[];

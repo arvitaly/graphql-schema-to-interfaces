@@ -143,7 +143,9 @@ export function printInterface(iface: IInterface): string {
                         : "") +
                 ")" : "")
 
-                + ": " + field.type + (field.isArray ? "[]" : "") + ";";
+                + ": " + field.type + (field.isArray ? "[]" : "")
+                + (!field.isFunction && !field.isRequired ? " | null" : "")
+                + ";";
         }).join("\n") + "\n}";
 }
 

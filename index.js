@@ -123,7 +123,9 @@ function printInterface(iface) {
                     "params" + (field.isArgsRequired ? "" : "?") + ": " + field.args
                     : "") +
                     ")" : "")
-                + ": " + field.type + (field.isArray ? "[]" : "") + ";";
+                + ": " + field.type + (field.isArray ? "[]" : "")
+                + (!field.isFunction && !field.isRequired ? " | null" : "")
+                + ";";
         }).join("\n") + "\n}";
 }
 exports.printInterface = printInterface;
